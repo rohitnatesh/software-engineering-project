@@ -1,1 +1,1 @@
-assets/raw_datasets/*/*.json
+src/raw_datasets/*/*.json
