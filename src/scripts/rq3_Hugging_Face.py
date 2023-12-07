@@ -14,14 +14,14 @@ DATASET_CATEGORIES = [
     "HN Sharings"
 ]
 
-OUTPUT_FOLDER_PATH = "/src/hugging_face_results/"
+OUTPUT_FOLDER_PATH = "/src/sentiment_analysis_results/"
 
 def write_to_file(data, output_file):
     file_location = CURRENT_DIRECTORY + OUTPUT_FOLDER_PATH  + output_file.lower().replace(' ','_') + ".json"
     with open(file_location, "w") as outfile:
         json.dump(data,outfile, indent=2)
 
-folder_path = 'G:/FSU/Fall 2023/Software Engg/Project/Code/software-engineering-project/src/filtered_datasets/rq3/'
+folder_path = f'{CURRENT_DIRECTORY}/src/filtered_datasets/rq3/'
 for file in DATASET_CATEGORIES:
     file_location = folder_path + file.lower().replace(' ','_') + ".json"
     #print(file_location)

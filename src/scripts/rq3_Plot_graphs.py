@@ -2,6 +2,7 @@
 
 import json
 import matplotlib.pyplot as plt
+import os
 
 def load_json(file_path):
     with open(file_path, 'r') as file:
@@ -23,13 +24,13 @@ def count_and_plot_emotion_labels(data, file):
     sizes = list(emotion_counts.values())
 
     plt.figure(figsize=(8, 8))  # Adjust figure size as needed
-    plt.pie(sizes, labels=None, autopct=lambda p: '{:.0f}'.format(p * sum(sizes) / 100), startangle=90)
+    plt.pie(sizes, pctdistance=1.1, labels=None, autopct=lambda p: '{:.0f}'.format(p * sum(sizes) / 100), startangle=90)
 
     # Add legend outside the pie chart
     plt.legend(labels, loc="center left", bbox_to_anchor=(1, 0.5))
     plt.title("Distribution of Emotion Labels for " + file)
 
-
+CURRENT_DIRECTORY = os.getcwd()
 DATASET_CATEGORIES = [
     "Commit Sharings",
     "PR Sharings",
@@ -37,7 +38,7 @@ DATASET_CATEGORIES = [
     "Discussion Sharings",
     "HN Sharings"
 ]
-output_folder_path = 'G:/FSU/Fall 2023/Software Engg/Project/Code/software-engineering-project/src/hugging_face_results/'
+output_folder_path = f'{CURRENT_DIRECTORY}/src/sentiment_analysis_results/'
 
 # Example usage
 for file in DATASET_CATEGORIES:
