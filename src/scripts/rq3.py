@@ -42,26 +42,15 @@ def write_to_file(data, output_file):
     with open(file_location, "w") as outfile:
         json.dump(data,outfile)
 
-"""def write_to_csv(data, output_file):
-    df = pd.read_json(data)
-    file_location = CURRENT_DIRECTORY + OUTPUT_FOLDER_PATH + output_file.lower().replace(' ','_') + ".csv"
-    df.to_csv(file_location, index = False)
-"""
-
-
-def process_sharing(raw_file_path):
-    #files = os.listdir(raw_file_path)
+def process_data(raw_file_path):
     final_cleaned_prompt=[]
     for file_name in raw_file_path:
-        #file_path = os.path.join(raw_file_path, file_name)
-        #with open(output_file_path, 'w') as output_file:
         print(f"\tReading File: {file_name}")
         with open(file_name) as file_content:
             json_data = json.load(file_content)
         
             #function call to get prompts from conversations
             prompts = extract_prompts(json_data)
-            #print(prompts)
 
             #remove html code from the prompt
             html_tag_pattern = re.compile (r'<.*?>')
@@ -70,20 +59,19 @@ def process_sharing(raw_file_path):
             #remove all unicodes such as in string "Continue, with Rebecca\u00e2\u0080\u0099s response"
             cleaned_prompt = remove_unicode(cleaned_prompt)
 
-                #remove \n,(,)
+            #remove \n,(,)
             cleaned_prompt = [s.replace("\n", "").replace("(", "").replace(")", "") for s in cleaned_prompt]
 
-                #remove extra space
+            #remove extra space
             cleaned_prompt = [' '.join(s.split()) for s in cleaned_prompt]
 
-                # Remove empty strings using list comprehension
+            # Remove empty strings using list comprehension
             cleaned_prompt = [string for string in cleaned_prompt if string != ""]
 
-                #Remove array if its length is less than 5
+            #Remove array if its length is less than 5
             cleaned_prompt = [s for s in cleaned_prompt if len(s) >= 5]
-            #print(cleaned_prompt)
             final_cleaned_prompt.extend(cleaned_prompt)
-            #print(final_cleaned_prompt)
+
     return final_cleaned_prompt  
 
 
@@ -92,11 +80,8 @@ def prepare_datasets():
     for file in DATASET_CATEGORIES:
         print(f"\nPreparing category: {file}")
         filepaths = glob(f"{CURRENT_DIRECTORY}{RAW_DATASETS_FILE_PATTERN}{file.lower().replace(' ','_')}.json")
-        #print(filepaths)
-        processed_data=process_sharing(filepaths) 
-       # print(processed_data)
+        processed_data=process_data(filepaths) 
         write_to_file(processed_data, file)
-        #write_to_csv(processed_data,file)
 
 def main():
     prepare_datasets()
