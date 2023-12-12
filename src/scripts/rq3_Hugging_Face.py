@@ -1,6 +1,6 @@
 from transformers import pipeline
 import json
-import os
+import os 
 
 sentiment_pipeline = pipeline("sentiment-analysis")
 
@@ -34,7 +34,9 @@ for file in DATASET_CATEGORIES:
                 final_data.append(trim_arr)
 
             #Hugging Face Pre-Trained Model
-            classifier = pipeline("text-classification",model='bhadresh-savani/bert-base-uncased-emotion', return_all_scores=True)#top_k=None)#
+
+            classifier = pipeline("text-classification",model='bhadresh-savani/bert-base-uncased-emotion', return_all_scores=True)
+            
             prediction = classifier(final_data)
             formatted_prediction = json.dumps(prediction, indent=2)
             #print(formatted_prediction)
