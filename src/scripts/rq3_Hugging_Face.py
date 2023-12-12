@@ -1,6 +1,6 @@
 from transformers import pipeline
 import json
-import os
+import os 
 
 sentiment_pipeline = pipeline("sentiment-analysis")
 

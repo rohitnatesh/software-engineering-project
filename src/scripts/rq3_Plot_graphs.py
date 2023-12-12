@@ -1,4 +1,4 @@
-#This code is used to plot graphs
+#This code is used to plot graphs.
 
 import json
 import matplotlib.pyplot as plt
