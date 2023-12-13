@@ -12,6 +12,7 @@ The three research questions being explored in this project are,
 3. While interacting with ChatGPT, what emotions do developers generally display?
 
 ## Project Structure
+- `requirements.txt` has all the dependencies required to run the Python code.
 - The `src` folder has all the code, data and the results.
 - Under `src`, `raw_datasets` has all the DevGPT snapshots and files.
 - Under `src`, each of the research questions are grouped under the folders `rq1`, `rq2` and `rq3` respectively.
@@ -33,17 +34,21 @@ The three research questions being explored in this project are,
 
 
 ## Steps to run
-1. To run research question 1,
-    ```bash
-    python ./src/rq1/main.py
-    ```
-
-2. To run research question 2,
-    ```bash
-    python ./src/rq2/main.py
-    ```
-
-3. To run research question 3,
-    ```bash
-    python ./src/rq3/main.py
-    ``` 
+1. Install the dependencies from the requirements file.
+   ```bash
+   pip install -r ./requirements.txt
+   ```
+2. To run the research questions,
+    - Research question 1
+        ```bash
+        python ./src/rq1/main.py
+        ```
+    - Research question 2
+        ```bash
+        python ./src/rq2/main.py
+        ```
+    - Research question 3
+        ```bash
+        python ./src/rq3/main.py
+        ```
+3. Follow the menu options provided by each of the research questions to perform pre-processing, data analysis or graph plotting.
