@@ -106,6 +106,8 @@ def plot_pie_chart(data,datset_name):
     dev_percentage = (count/len(data)) * 100 
     values.append(dev_percentage)
     values.append(100 - dev_percentage)
+
+    plt.figure(figsize=(10, 6))
     plt.title('Pie Chart for Deviations in '+ datset_name)  
     plt.legend(labels, loc="center left", bbox_to_anchor=(1, 0.5))
     plt.pie(values, labels=labels, autopct="%1.1f%%", startangle=90, colors=['orange','blue'])
@@ -113,8 +115,6 @@ def plot_pie_chart(data,datset_name):
 # Plotting bar graph with labels
 
 def plot_bar_chart(data):
-
-    x_labels = ['commit_sharings','pr_sharings','issues_sharings','discussion_sharings','hn_sharings']
     deviation_percentages = []
     for dataset in data.keys():
         res = data[dataset]
@@ -124,15 +124,16 @@ def plot_bar_chart(data):
                 count = count + 1  
         dev_percentage = (count/len(res)) * 100
         deviation_percentages.append(dev_percentage)
-    plt.bar(x_labels,deviation_percentages,color='blue')
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(DATASET_CATEGORIES,deviation_percentages,color='blue')
     plt.xlabel('Datasets')
     plt.ylabel('Percentages')
     plt.title('Deviation Percentage by Dataset')
     plt.ylim(0, 100)
+    plt.tight_layout()
     for i, percentage in enumerate(deviation_percentages):
         plt.text(i, percentage + 2, f'{percentage:.2f}%', ha='center')
-
-    plt.show()
     
 def analyze_data():
     
@@ -146,11 +147,11 @@ def analyze_data():
 
     data = [read_json_data(filepath) for filepath in filepaths]
 
-    for i in range(0,len(data)):
-        dataset_name = DATASET_CATEGORIES[i].lower().replace(' ','_')              
+    for i in range(0,len(data)):    
         res = calculate_deviation(data[i],dataset_name,similarity_threshold)        
         values[dataset_name] = res
-        # plot_pie_chart(res,dataset_name)
+        plot_pie_chart(res, DATASET_CATEGORIES[i])
+
     plot_bar_chart(values)
     plt.show()
 
