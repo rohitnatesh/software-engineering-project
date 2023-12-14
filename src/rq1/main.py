@@ -7,11 +7,9 @@ import os
 import json
 from glob import glob
 from statistics import mean
-from statistics import median
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from collections import Counter
 
 CURRENT_DIRECTORY = os.getcwd()
 RAW_DATASETS_FILE_PATTERN = "/src/raw_datasets/*/*_"
@@ -23,7 +21,7 @@ DATASET_CATEGORIES = [
     "HN Sharings"
 ]
 
-OUTPUT_FOLDER_PATH = "/src/filtered_datasets/rq1/"
+OUTPUT_FOLDER_PATH = "/src/rq1/processed_datasets/"
 
 def read_json_data(filepath):
     print(f"\tReading File: {filepath}")
@@ -143,7 +141,6 @@ def analyze_data():
     values = {}
     for dataset in DATASET_CATEGORIES:
         file = glob(f"{CURRENT_DIRECTORY}{OUTPUT_FOLDER_PATH}{dataset.lower().replace(' ','_')}.json")
-        print(file)
         dataset_name = dataset.lower().replace(' ','_')
         filepaths.append(file[0])
 
@@ -153,15 +150,14 @@ def analyze_data():
         dataset_name = DATASET_CATEGORIES[i].lower().replace(' ','_')              
         res = calculate_deviation(data[i],dataset_name,similarity_threshold)        
         values[dataset_name] = res
-        plot_pie_chart(res,dataset_name)
-    # plot_bar_chart(values)
+        # plot_pie_chart(res,dataset_name)
+    plot_bar_chart(values)
     plt.show()
 
 def prepare_datasets():
 
     for file in DATASET_CATEGORIES:
         filepaths = glob(f"{CURRENT_DIRECTORY}{RAW_DATASETS_FILE_PATTERN}{file.lower().replace(' ','_')}.json")
-        print(filepaths)
         data = [read_json_data(filepath) for filepath in filepaths]
         processed_data = preprocess_data(data)
         write_data(processed_data,file)
