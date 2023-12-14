@@ -18,7 +18,10 @@ The three research questions being explored in this project are,
 - Under `src`, each of the research questions are grouped under the folders `rq1`, `rq2` and `rq3` respectively.
 
 ### Files in `src/rq1`
-- 
+- `src/rq1/main.py` is the main Python file having all the data processing and analysis code.
+- Running the main file, it provides the user with options of data processing and data analysis.
+    1. **Data processing** - Reads all the given datasets present in the `src/raw_datasets` and retrieves the relevant information for answering rq1. It cleans the data and prepares the data for further analysis. The resultant data is being merged from all the snapshots and placed under the folder `src/rq1/processed_datasets`.
+    2. **Data analysis** - The data is read from the processed datasets, cosine similarity is used for determining the similarity and average metric is used for similarity metric for a conversation. Based on the threshold, bar graph and pie chart are plotted for each of the datasets to determine the deviation observed accordingly and the resulting graphs are stored under `src/rq1/results` 
 
 ### Files in `src/rq2`
 - `src/rq2/main.py` is the main Python file having all the data processing and analysis code.
