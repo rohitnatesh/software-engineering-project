@@ -77,7 +77,7 @@ def calculate_cosine_similarity(Answers):
         
     return mean(conv_similarity)
 
-def calculate_deviation(dataset,name,threshold):
+def calculate_deviation(dataset,threshold):
 
     result = []
     Conversations = dataset["ChatgptConversations"]        
@@ -141,14 +141,13 @@ def analyze_data():
     values = {}
     for dataset in DATASET_CATEGORIES:
         file = glob(f"{CURRENT_DIRECTORY}{OUTPUT_FOLDER_PATH}{dataset.lower().replace(' ','_')}.json")
-        dataset_name = dataset.lower().replace(' ','_')
         filepaths.append(file[0])
 
     data = [read_json_data(filepath) for filepath in filepaths]
 
     for i in range(0,len(data)):    
-        res = calculate_deviation(data[i],dataset_name,similarity_threshold)        
-        values[dataset_name] = res
+        res = calculate_deviation(data[i],similarity_threshold)        
+        values[DATASET_CATEGORIES[i]] = res
         plot_pie_chart(res, DATASET_CATEGORIES[i])
 
     plot_bar_chart(values)
